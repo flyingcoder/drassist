@@ -24,7 +24,7 @@ class PatientTest extends TestCase
                          ->withHeaders(['HTTP_X-Requested-With' => 'XMLHttpRequest'])
                          ->get('api/patients');
 
-        dd($response->content());
+        //dd($response->content());
         $response->assertStatus(200);
     }
 
@@ -33,22 +33,25 @@ class PatientTest extends TestCase
         $this->withoutExceptionHandling();
 
         $user = User::all()->first();
-        
+
         //test data only replace with expected data
         $data = [
-            'title' => 'Test',
-            'start_at' => '2018-12-19',
-            'end_at' => '2018-12-19',
-            'location' => 'required',
-            'description' => 'required',
-            'comment' => 'test comment',
+            'role_id' => 1,
+            'first_name' => 'new',
+            'last_name' => 'mae',
+            'email' => 'ryan@email.com',
+            'password' => 'ryan123',
+            'date_of_birth' => '01/01/98',
+            'gender' => 'M',
+            'phone_no' => '4623432345',
+            'address' => 'Iligan',
         ];
-        
+
         $response = $this->actingAs($user, 'api')
                          ->withHeaders(['HTTP_X-Requested-With' => 'XMLHttpRequest'])
                          ->post('api/patients', $data);
 
-        //dd($response->content());
+        dd($response->content());
         $response->assertStatus(200);
     }
 }
