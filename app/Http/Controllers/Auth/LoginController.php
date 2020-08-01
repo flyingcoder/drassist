@@ -40,6 +40,7 @@ class LoginController extends Controller
 
             return response()->json([
                 'token' => Auth::user()->createToken('MyApp')->accessToken,
+                'user' => Auth::user()
             ], $this->successStatus);
         } 
         else{ 
