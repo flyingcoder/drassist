@@ -11,31 +11,32 @@ class PatientController extends Controller
 {
     public function index() {
 
-        $data = User::where('parent_id', auth()->user()->id)->get();
+        $data = request()->user()->patients;
 
         return response()->json($data, 200);
     }
 
 
-    public function store(Request $request) {
+    public function store() {
 
-        $data = $request->validate([
-            'role_id' => 'required',
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required',
-            'password' => 'required|min:6',
-            'date_of_birth' => 'required',
+        request()->validate([
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'age' => 'required',
             'gender' => 'required',
-            'phone_no' => 'required',
-            'address' => 'required',
-
         ]);
 
-        $data['parent_id'] = auth()->user()->id;
+        //dd(request()->user());
 
-        $users = User::create($data);
+        $patient = request()->user()
+                         ->patients()
+                         ->create(request()->all());
 
-        return response()->json($users, 200);
+        return response()->json($patient, 200);
+    }
+
+    public function records()
+    {
+        # code...
     }
 }
