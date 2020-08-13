@@ -26,5 +26,9 @@ Route::group(['middleware' => ['auth:api']], function () {
 	Route::get('patients', 'PatientController@index');
 	Route::post('patients', 'PatientController@store');
 	Route::post('records', 'PatientController@records');
+	Route::delete('patients/{id}', 'PatientController@deletePatient');
 });
+
+
+
 
