@@ -44,12 +44,19 @@ class User extends Authenticatable
     protected static function boot() {
         
         parent::boot();
-        /*
+    
         static::created(function($model) { 
             $model->patients()->create([
                 'firstname' => $model->first_name,
                 'lastname' => $model->last_name,
+                'gender' => $model->gender,
+                'health_card_province' => 'default',
+                'health_card' => 'default',
+                `relationships` => 'self',
+                'age' => $model->age,
+                'certify' => true
+
             ]);
-        });*/
+        });
     }
 }
