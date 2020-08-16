@@ -36,21 +36,11 @@ class PatientController extends Controller
         return response()->json($patient, 200);
     }
 
-    public function newRecords($id)
+    public function getPatient($id)
     {
         $patient = Patient::findOrfail($id);
-        request()->validate([
-            'title' => 'required',
 
-        ]);
-
-        //dd(request()->user());
-
-        $records = $patient
-                         ->records()
-                         ->create(request()->all());
-
-        return response()->json($records, 200);
+        return response()->json($patient, 200);
     }
 
 

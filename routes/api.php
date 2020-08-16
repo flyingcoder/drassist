@@ -25,8 +25,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['middleware' => ['auth:api']], function () {
 	Route::get('patients', 'PatientController@index');
 	Route::post('patients', 'PatientController@store');
-	Route::post('records/{id}', 'PatientController@newRecords');
+	Route::post('records/{id}', 'MedRecController@newRecords');
+	Route::get('records/{id}', 'MedRecController@records');
 	Route::delete('patients/{id}', 'PatientController@deletePatient');
+	Route::get('patients/{id}', 'PatientController@getPatient');
 	Route::delete('records/{id}', 'PatientController@deleteRecord');
 	Route::delete('contact/{id}', 'PatientController@deleteContact');
 });

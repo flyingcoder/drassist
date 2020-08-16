@@ -52,10 +52,9 @@ class User extends Authenticatable
                 'gender' => $model->gender,
                 'health_card_province' => 'default',
                 'health_card' => 'default',
-                `relationships` => 'self',
+                'relationship' => 'null',
                 'age' => $model->age,
                 'certify' => true
-
             ]);
         });
     }
