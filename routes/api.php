@@ -28,6 +28,7 @@ Route::group(['middleware' => ['auth:api']], function () {
 	Route::post('records/{id}', 'MedRecController@newRecords');
 	Route::get('records/{id}', 'MedRecController@records');
 	Route::delete('patients/{id}', 'PatientController@deletePatient');
+	Route::post('patients/{id}', 'PatientController@updatePatient');
 	Route::get('patients/{id}', 'PatientController@getPatient');
 	Route::delete('records/{id}', 'PatientController@deleteRecord');
 	Route::delete('contact/{id}', 'PatientController@deleteContact');
