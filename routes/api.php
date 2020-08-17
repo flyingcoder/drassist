@@ -30,7 +30,7 @@ Route::group(['middleware' => ['auth:api']], function () {
 	Route::delete('patients/{id}', 'PatientController@deletePatient');
 	Route::post('patients/{id}', 'PatientController@updatePatient');
 	Route::get('patients/{id}', 'PatientController@getPatient');
-	Route::delete('records/{id}', 'PatientController@deleteRecord');
+	Route::delete('records/{id}', 'MedRecController@deleteRecord');
 	Route::delete('contact/{id}', 'PatientController@deleteContact');
 });
 

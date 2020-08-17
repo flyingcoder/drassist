@@ -31,4 +31,10 @@ class MedRecController extends Controller
 
         return response()->json($records, 200);
     }
+
+    public function deleteRecord($id) {
+        $records = Patient::findorFail($id);
+        $records->delete();
+        return response()->json($records, 204);
+    }
 }
