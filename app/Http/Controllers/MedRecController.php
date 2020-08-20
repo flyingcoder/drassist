@@ -19,13 +19,21 @@ class MedRecController extends Controller
     {
        $record = MedRec::findOrfail($id);
 
-       return response()->json($record->records, 200);
+       return response()->json($record, 200);
+    }
+
+    public function updateRecord($id)
+    {
+        $record = MedRec::findOrfail($id);
+
+
     }
 
 
     public function newRecords($id)
     {
         $patient = Patient::findOrfail($id);
+
         request()->validate([
             'title' => 'required',
             'category' => 'required',
@@ -42,8 +50,11 @@ class MedRecController extends Controller
     }
 
     public function deleteRecord($id) {
+
         $record = MedRec::findorFail($id);
+
         $record->delete();
+
         return response()->json($record, 204);
     }
 }

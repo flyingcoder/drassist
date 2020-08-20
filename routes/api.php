@@ -23,15 +23,23 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => ['auth:api']], function () {
-	Route::get('patients', 'PatientController@index');
-	Route::post('patients', 'PatientController@store');
-	Route::post('records/{id}', 'MedRecController@newRecords');
-	Route::get('records/{id}', 'MedRecController@getRecord');
-	Route::get('patients/{id}/records', 'MedRecController@records');
-	Route::delete('patients/{id}', 'PatientController@deletePatient');
-	Route::post('patients/{id}', 'PatientController@updatePatient');
-	Route::get('patients/{id}', 'PatientController@getPatient');
-	Route::delete('records/{id}', 'PatientController@deleteRecord');
+	
+	Route::group(['prefix' => 'patients'], function () {
+		Route::get('/', 'PatientController@index');
+		Route::post('/', 'PatientController@store');
+		Route::post('{id}/records', 'MedRecController@newRecords');
+		Route::get('{id}/records', 'MedRecController@records');
+		Route::delete('{id}', 'PatientController@deletePatient');
+		Route::post('{id}', 'PatientController@updatePatient');
+		Route::get('{id}', 'PatientController@getPatient');
+	});
+	
+	Route::group(['prefix' => 'records'], function () {
+		Route::post('{id}', 'MedRecController@updateRecord');
+		Route::get('{id}', 'MedRecController@getRecord');
+		Route::delete('{id}', 'MedRecController@deleteRecord');
+	});
+
 	Route::delete('contact/{id}', 'PatientController@deleteContact');
 });
 
