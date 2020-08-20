@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Patient;
+use App\MedRec;
 
 class MedRecController extends Controller
 {
@@ -33,8 +34,8 @@ class MedRecController extends Controller
     }
 
     public function deleteRecord($id) {
-        $records = Patient::findorFail($id);
-        $records->delete();
-        return response()->json($records, 204);
+        $record = MedRec::findorFail($id);
+        $record->delete();
+        return response()->json($record, 204);
     }
 }
