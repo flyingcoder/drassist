@@ -26,7 +26,8 @@ Route::group(['middleware' => ['auth:api']], function () {
 	Route::get('patients', 'PatientController@index');
 	Route::post('patients', 'PatientController@store');
 	Route::post('records/{id}', 'MedRecController@newRecords');
-	Route::get('records/{id}', 'MedRecController@records');
+	Route::get('records/{id}', 'MedRecController@getRecord');
+	Route::get('patients/{id}/records', 'MedRecController@records');
 	Route::delete('patients/{id}', 'PatientController@deletePatient');
 	Route::post('patients/{id}', 'PatientController@updatePatient');
 	Route::get('patients/{id}', 'PatientController@getPatient');

@@ -68,10 +68,4 @@ class PatientController extends Controller
         return response()->json($patient, 204);
     }
 
-    public function deleteRecord($id) {
-        $records = Patient::findorFail($id);
-        $records->delete();
-        return response()->json($records, 204);
-    }
-
 }

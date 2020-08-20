@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Patient;
+use App\MedRec;
 
 class MedRecController extends Controller
 {
@@ -13,6 +14,14 @@ class MedRecController extends Controller
 
        return response()->json($patient->records, 200);
     }
+
+    public function getRecord($id)
+    {
+       $record = MedRec::findOrfail($id);
+
+       return response()->json($record->records, 200);
+    }
+
 
     public function newRecords($id)
     {
@@ -30,5 +39,11 @@ class MedRecController extends Controller
                      ->create(request()->all());
 
         return response()->json($records, 200);
+    }
+
+    public function deleteRecord($id) {
+        $record = MedRec::findorFail($id);
+        $record->delete();
+        return response()->json($record, 204);
     }
 }
