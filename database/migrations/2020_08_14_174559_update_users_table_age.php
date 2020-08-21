@@ -14,7 +14,7 @@ class UpdateUsersTableAge extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('age');
+            $table->integer('age')->nullable()->change();
         });
     }
 

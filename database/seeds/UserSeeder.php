@@ -15,9 +15,9 @@ class UserSeeder extends Seeder
         //
         $users = array(
             array('id' => 1, 'role_id' => 1, 'first_name' => 'Patient', 'last_name' => 'Patient 1', 'email' => 'patient@email.com',
-             'password' => bcrypt('patient1234'), 'date_of_birth' => '12/12/97', 'gender' => 'M', 'phone_no' => '034583020', 'address' => 'Canada', ),
+             'password' => bcrypt('patient1234'), 'age' => 30, 'gender' => 'M' ),
              array('id' => 2, 'role_id' => 2, 'first_name' => 'Cassidy', 'last_name' => 'Adhami', 'email' => 'doctor@email.com',
-             'password' => bcrypt('doctor1234'), 'date_of_birth' => '01/01/97', 'gender' => 'M', 'phone_no' => '23554324', 'address' => 'Canada', ),
+             'password' => bcrypt('doctor1234'), 'age' => 30, 'gender' => 'M' ),
         );
 
         User::insert($users);
