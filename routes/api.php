@@ -18,11 +18,17 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', 'Auth\LoginController@login');
 Route::post('register', 'Auth\RegisterController@register');
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
 Route::group(['middleware' => ['auth:api']], function () {
+
+	Route::group(['prefix' => 'user'], function () {
+		Route::get('/', 'UserController@getUser');
+		Route::post('payments', 'UserController@postPaymentMethods');
+		Route::get('payment-methods', 'UserController@getPaymentMethods');
+		Route::post('remove-payment', 'UserController@removePaymentMethod');
+		Route::post('buy-credits', 'UserController@buyCredits');
+	});
+	
 	
 	Route::group(['prefix' => 'patients'], function () {
 		Route::get('/', 'PatientController@index');
