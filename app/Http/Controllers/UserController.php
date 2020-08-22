@@ -14,7 +14,31 @@ class UserController extends Controller
 
     public function buyCredits()
     {
-    	# code...
+    	$user = request()->user();
+
+    	if(!$user->hasPaymentMethod())
+    		return response()->json(['error' => 'No payment method set up'], 404);
+
+    	$paymentMethod = $user->defaultPaymentMethod()->asStripePaymentMethod();
+
+    	$amount = request()->price * 100;
+
+    	$payment = $user->charge($amount, $paymentMethod);
+
+    	if($payment->status == 'succeeded')
+    		$user->deposit(request()->credit);
+
+    	return response()->json(['credits' => $user->balance], 204);
+    }	
+
+    public function getCredits()
+    {
+    	$user = request()->user();
+
+    	if( $user->stripe_id != null )
+    		return response()->json(['balance' => $user->balance], 200);
+
+    	return response()->json(['error' => 'No payment method set up'], 404);
     }
 
     public function getPaymentMethods()
@@ -44,8 +68,10 @@ class UserController extends Controller
 
 	    $paymentMethodID = request()->get('payment_method');
 
-	    if( $user->stripe_id == null )
+	    if( $user->stripe_id == null ) {
 	        $user->createAsStripeCustomer();
+	        $user->wallet()->create();
+	    }
 
 	    $user->addPaymentMethod( $paymentMethodID );
 

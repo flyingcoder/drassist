@@ -26,7 +26,11 @@ Route::group(['middleware' => ['auth:api']], function () {
 		Route::post('payments', 'UserController@postPaymentMethods');
 		Route::get('payment-methods', 'UserController@getPaymentMethods');
 		Route::post('remove-payment', 'UserController@removePaymentMethod');
-		Route::post('buy-credits', 'UserController@buyCredits');
+	});
+
+	Route::group(['prefix' => 'credits'], function () {
+		Route::post('/', 'UserController@buyCredits');
+		Route::get('/', 'UserController@getCredits');
 	});
 	
 	
