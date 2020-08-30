@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Patient;
 use App\MedRec;
+use thiagoalessio\TesseractOCR\TesseractOCR;
 
 class MedRecController extends Controller
 {
@@ -26,9 +27,39 @@ class MedRecController extends Controller
     {
         $record = MedRec::findOrfail($id);
 
+        $record->title = request()->title;
 
+        $record->save();
+
+        return response()->json($record, 200);
     }
 
+    public function uploadRecord($id)
+    {
+       $record = MedRec::findOrfail($id);
+
+       if(request()->hasFile('image')) {
+
+            $image      = request()->file('image');
+
+            $fileName   = time() . '.' . $image->getClientOriginalExtension();
+
+            //dd();
+            $path = $image->storeAs('records', $fileName, 'public');
+
+            $record->record_upload_url = $path;
+
+            $record->save();
+
+            $ocr = new TesseractOCR();
+
+            $ocr->image(storage_path('app/public').'/'.$path);
+
+            $text = $ocr->run();
+
+            return response()->json($text, 200);
+        }
+    }
 
     public function newRecords($id)
     {
@@ -39,8 +70,6 @@ class MedRecController extends Controller
             'category' => 'required',
 
         ]);
-
-        //dd(request()->user());
 
         $records = $patient
                      ->records()

@@ -46,6 +46,7 @@ Route::group(['middleware' => ['auth:api']], function () {
 	
 	Route::group(['prefix' => 'records'], function () {
 		Route::post('{id}', 'MedRecController@updateRecord');
+		Route::post('{id}/upload', 'MedRecController@uploadRecord');
 		Route::get('{id}', 'MedRecController@getRecord');
 		Route::delete('{id}', 'MedRecController@deleteRecord');
 	});
