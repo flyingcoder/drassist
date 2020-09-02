@@ -28,7 +28,7 @@ class UserController extends Controller
     	if($payment->status == 'succeeded')
     		$user->deposit(request()->credit);
 
-    	return response()->json(['credits' => $user->balance], 204);
+    	return response()->json(['balance' => $user->balance], 200);
     }	
 
     public function getCredits()
