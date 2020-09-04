@@ -51,6 +51,10 @@ Route::group(['middleware' => ['auth:api']], function () {
 		Route::delete('{id}', 'MedRecController@deleteRecord');
 	});
 
+	Route::group(['prefix' => 'cards'], function () {
+		Route::post('/', 'MedRecController@uploadCard');
+	});
+
 	Route::delete('contact/{id}', 'PatientController@deleteContact');
 });
 
