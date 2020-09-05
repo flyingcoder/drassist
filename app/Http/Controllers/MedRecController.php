@@ -89,9 +89,9 @@ class MedRecController extends Controller
 
         if(strpos($explode[4], 'F')) {
             $gender = 'F';
-            $bdate = explode('F', $explode[4]);
+            $bdate = str_replace(' ', '', explode('F', $explode[4]));
         } elseif(strpos($explode[4], 'M')) {
-            $bdate = explode('M', $explode[4]);
+            $bdate = str_replace(' ', '', explode('M', $explode[4]));
             $gender = 'M';
         }
 
@@ -99,7 +99,7 @@ class MedRecController extends Controller
 
         $parse = [
             'name' => $explode[0],
-            'cardholder' => $explode[1],
+            'card_number' => $explode[1],
             'birthdate' => $bdate[0],
             'gender' => $gender,
             'explode' => $explode,
