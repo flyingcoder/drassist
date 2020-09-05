@@ -104,7 +104,8 @@ class MedRecController extends Controller
             'gender' => $gender,
             'explode' => $explode,
             'dateissue' => $issdate[0],
-            'dateexp' => $issdate[1]
+            'dateexp' => $issdate[1],
+            'text' => $text
 
         ];
 

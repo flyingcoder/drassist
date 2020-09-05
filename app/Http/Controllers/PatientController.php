@@ -29,8 +29,8 @@ class PatientController extends Controller
         //dd(request()->user());
 
         $patient = request()->user()
-                         ->patients()
-                         ->create(request()->all());
+                            ->patients()
+                            ->create(request()->all());
 
         return response()->json($patient, 200);
     }
