@@ -51,6 +51,9 @@ class MedRecController extends Controller
 
         $text = $ocr->run();
 
+        $result = $text;
+
+        $result = $this->parseHealthCard($text);
         if(request()->has('type')) {
             $result = $this->parseHealthCard($text);
         }
@@ -87,6 +90,9 @@ class MedRecController extends Controller
 
         $explode = explode(PHP_EOL, $text);
 
+        $bdate = '';
+        $gender = '';
+
         if(strpos($explode[4], 'F')) {
             $gender = 'F';
             $bdate = str_replace(' ', '', explode('F', $explode[4]));
@@ -95,16 +101,17 @@ class MedRecController extends Controller
             $gender = 'M';
         }
 
-        $issdate = explode(' ', $explode[10]);
+        $issdate = '';
+        //$issdate = explode(' ', $explode[10]);
 
         $parse = [
-            'name' => $explode[0],
-            'card_number' => $explode[1],
-            'birthdate' => $bdate[0],
+            //'name' => $explode[0],
+            //'card_number' => $explode[1],
+            //'birthdate' => $bdate[0],
             'gender' => $gender,
             'explode' => $explode,
-            'dateissue' => $issdate[0],
-            'dateexp' => $issdate[1],
+            //'dateissue' => $issdate[0],
+            //'dateexp' => $issdate[1],
             'text' => $text
 
         ];
