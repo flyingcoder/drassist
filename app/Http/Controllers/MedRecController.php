@@ -34,31 +34,81 @@ class MedRecController extends Controller
         return response()->json($record, 200);
     }
 
+    public function processUpload()
+    {
+        $image = request()->file('image');
+
+        $fileName   = time() . '.' . $image->getClientOriginalExtension();
+
+        //dd();
+        $path = $image->storeAs('records', $fileName, 'public');
+
+        $ocr = new TesseractOCR();
+
+        $ocr->image(storage_path('app/public').'/'.$path);
+
+        $ocr->lang('eng', 'fra');
+
+        $text = $ocr->run();
+
+        if(request()->has('type')) {
+            $result = $this->parseHealthCard($text);
+        }
+
+        return $result;
+    }
+
+    public function uploadCard()
+    {
+        if(request()->hasFile('image')) {
+
+            $text = $this->processUpload();
+
+            return response()->json($text, 200);
+        }
+    }
+
     public function uploadRecord($id)
     {
        $record = MedRec::findOrfail($id);
 
        if(request()->hasFile('image')) {
 
-            $image      = request()->file('image');
-
-            $fileName   = time() . '.' . $image->getClientOriginalExtension();
-
-            //dd();
-            $path = $image->storeAs('records', $fileName, 'public');
-
-            $record->record_upload_url = $path;
-
-            $record->save();
-
-            $ocr = new TesseractOCR();
-
-            $ocr->image(storage_path('app/public').'/'.$path);
-
-            $text = $ocr->run();
+            $text = $this->processUpload();
 
             return response()->json($text, 200);
         }
+    }
+
+    public function parseHealthCard($text)
+    {
+        //first line is name;
+        $text = str_replace(' - ', '-', $text);
+
+        $explode = explode(PHP_EOL, $text);
+
+        if(strpos($explode[4], 'F')) {
+            $gender = 'F';
+            $bdate = explode('F', $explode[4]);
+        } elseif(strpos($explode[4], 'M')) {
+            $bdate = explode('M', $explode[4]);
+            $gender = 'M';
+        }
+
+        $issdate = explode(' ', $explode[10]);
+
+        $parse = [
+            'name' => $explode[0],
+            'cardholder' => $explode[1],
+            'birthdate' => $bdate[0],
+            'gender' => $gender,
+            'explode' => $explode,
+            'dateissue' => $issdate[0],
+            'dateexp' => $issdate[1]
+
+        ];
+
+        return $parse;
     }
 
     public function newRecords($id)

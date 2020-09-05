@@ -52,10 +52,13 @@ Route::group(['middleware' => ['auth:api']], function () {
 	});
 
 	Route::group(['prefix' => 'contact'], function () {
-		Route::delete('contact/{id}', 'PatientController@deleteContact');
-		Route::post('contact/{id}', 'ContactController@getContact');
+		Route::delete('{id}', 'PatientController@deleteContact');
+		Route::get('{id}', 'ContactController@getContact');
 	});
 
+	Route::group(['prefix' => 'cards'], function () {
+		Route::post('/', 'MedRecController@uploadCard');
+	});
 });
 
 
