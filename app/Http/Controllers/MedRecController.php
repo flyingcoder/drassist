@@ -51,6 +51,8 @@ class MedRecController extends Controller
 
         $text = $ocr->run();
 
+        $result = $text;
+        
         if(request()->has('type')) {
             $result = $this->parseHealthCard($text);
         }
