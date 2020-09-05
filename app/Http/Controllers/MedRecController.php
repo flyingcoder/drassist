@@ -47,12 +47,10 @@ class MedRecController extends Controller
 
         $ocr->image(storage_path('app/public').'/'.$path);
 
-        $ocr->lang('eng', 'fra');
+        $ocr->lang('eng');
 
         $text = $ocr->run();
 
-        $result = $text;
-        
         if(request()->has('type')) {
             $result = $this->parseHealthCard($text);
         }
