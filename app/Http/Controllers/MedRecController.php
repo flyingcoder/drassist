@@ -105,8 +105,8 @@ class MedRecController extends Controller
         //$issdate = explode(' ', $explode[10]);
 
         $parse = [
-            //'name' => $explode[0],
-            //'card_number' => $explode[1],
+            'name' => $explode[0],
+            'card_number' => $explode[1],
             //'birthdate' => $bdate[0],
             'gender' => $gender,
             'explode' => $explode,
