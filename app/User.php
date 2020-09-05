@@ -49,10 +49,10 @@ class User extends Authenticatable
     
         static::created(function($model) { 
             $model->patients()->create([
-                'firstname' => $model->first_name,
-                'lastname' => $model->last_name,
+                'name' => $model->name,
                 'gender' => $model->gender,
                 'health_card_province' => 'default',
+                'date_of_birth' => $model->date_of_birth,
                 'health_card' => 'default',
                 'relationship' => 'null',
                 'age' => $model->age,

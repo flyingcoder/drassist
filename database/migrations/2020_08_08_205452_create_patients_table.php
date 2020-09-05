@@ -17,13 +17,16 @@ class CreatePatientsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->boolean('certify');
-            $table->string('firstname');
-            $table->string('lastname');
-            $table->string('gender');
+            $table->string('name')->nullable();
+            $table->string('gender')->nullable();
             $table->string('health_card_province')->nullable();
             $table->string('health_card')->nullable();
-            $table->integer('age');
-            $table->string('relationship');
+            $table->integer('age')->nullable();
+            $table->string('relationship')->nullable();
+            $table->string('health_card_exp')->nullable();
+            $table->string('health_card_issue')->nullable();
+            $table->string('health_card_number')->nullable();
+            $table->string('date_of_birth')->nullable();
             $table->timestamps();
         });
     }

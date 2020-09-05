@@ -21,8 +21,7 @@ class PatientController extends Controller
     public function store() {
 
         request()->validate([
-            'firstname' => 'required',
-            'lastname' => 'required',
+            'name' => 'required',
             'age' => 'required',
             'gender' => 'required',
         ]);
@@ -40,8 +39,7 @@ class PatientController extends Controller
     {
         $patient = Patient::findOrfail($id);
 
-        $patient->firstname = request()->firstname;
-        $patient->lastname = request()->lastname;
+        $patient->firstname = request()->name;
         $patient->age = request()->age;
         $patient->gender = request()->gender;
         $patient->certify = request()->certify;
