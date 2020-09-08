@@ -43,6 +43,11 @@ class User extends Authenticatable
         return $this->hasMany(Patient::class);
     }
 
+    public function contacts()
+    {
+        return $this->hasMany(Contact::class);
+    }
+
     protected static function boot() {
         
         parent::boot();
