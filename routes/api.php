@@ -51,9 +51,11 @@ Route::group(['middleware' => ['auth:api']], function () {
 		Route::delete('{id}', 'MedRecController@deleteRecord');
 	});
 
-	Route::group(['prefix' => 'contact'], function () {
-		Route::delete('{id}', 'PatientController@deleteContact');
-		Route::get('{id}', 'ContactController@getContact');
+	Route::group(['prefix' => 'contacts'], function () {
+		Route::delete('{id}', 'ContactController@deleteContact');
+		Route::get('{id}', 'ContactController@getContacts');
+		Route::post('/', 'ContactController@store');
+		Route::post('{id}', 'ContactController@updateContact');
 	});
 
 	Route::group(['prefix' => 'cards'], function () {

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use App\Contact;
 
 class ContactController extends Controller
 {
@@ -13,7 +15,9 @@ class ContactController extends Controller
      */
     public function index()
     {
-        //
+        $contacts = Contact::all();
+
+        return view('contacts.index', compact('contacts'));
     }
 
     /**
@@ -23,19 +27,9 @@ class ContactController extends Controller
      */
     public function create()
     {
-        //
+         return view('contacts.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
     /**
      * Display the specified resource.
@@ -56,7 +50,8 @@ class ContactController extends Controller
      */
     public function edit($id)
     {
-        //
+        $contact = Contact::find($id);
+        return view('contacts.edit', compact('contact')); 
     }
 
     /**
@@ -66,9 +61,22 @@ class ContactController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updateContact(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name'=>'required',
+            'phone_number'=>'required',
+            'email'=>'required'
+        ]);
+
+        $contact = Contact::findOrFail($id);
+        $contact->name =  $request->get('name');
+        $contact->phone_number = $request->get('phone_number');
+        $contact->email = $request->get('email');
+        $contact->relationship = $request->get('relationship');
+        $data = $contact->save();
+
+        return response()->json($data, 200);
     }
 
     /**
@@ -77,8 +85,36 @@ class ContactController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function deleteContact($id)
     {
-        //
+        $contact = Contact::findOrfail($id);
+        $contact->delete();
+        return response()->json($contact, 200);
+    }
+
+     public function store(Request $request)
+    {
+        $request->validate([
+            'name'=>'required',
+            'phone_number'=>'required',
+            'email'=>'required'
+        ]);
+
+        $contact = Contact::create([
+            'user_id' => $request->user()->id,
+            'name' => $request->name,
+            'phone_number' => $request->phone_number,
+            'email' => $request->email,
+            'relationship' => $request->relationship,
+        ]);
+
+        return response()->json($contact, 200);
+    }
+
+    public function getContacts($id) {
+        $user = User::findOrFail($id);
+        $data = $user->contacts;
+        return response()->json($data, 200);
+
     }
 }
