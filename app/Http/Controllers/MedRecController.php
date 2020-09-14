@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Patient;
 use App\MedRec;
 use thiagoalessio\TesseractOCR\TesseractOCR;
-use Illuminate\Support\Facades\Http;
+use GuzzleHttp\Client;
 
 class MedRecController extends Controller
 {
@@ -47,20 +47,22 @@ class MedRecController extends Controller
         //$path = url('storage/'.$path);
         $path = 'https://api.doctorassist.ca/storage/records/1600116821.png';
 
-        $ocr_api = "https://api.ocr.space/parse/imageurl";
+        $ocr_api = "https://api.ocr.space/parse/imageurl?apikey=ca4ed5f2ec88957";
 
         $param = [
-            'apikey' => 'ca4ed5f2ec88957',
             'url' => $path,
+            'filetype' => 'png',
             'OCREngine' => 2,
-            'detectOrientation' => true,
-            'isTable' => true,
-            'isOverlayRequired' => true
+            'detectOrientation' => 'true',
+            'isTable' => 'true',
+            'isOverlayRequired' => 'true'
         ];
 
-        $response = Http::get($ocr_api, $param);
+        foreach ($param as $key => $q) {
+            $ocr_api .= '&'.$key.'='.$q;
+        }
 
-        return $response;
+        return $ocr_api;
         //$result = $this->parseHealthCard($text);
         //if(request()->has('type')) {
         //    $result = $this->parseHealthCard($text);
