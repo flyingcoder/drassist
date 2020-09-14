@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Patient;
 use App\MedRec;
 use thiagoalessio\TesseractOCR\TesseractOCR;
+use Illuminate\Support\Facades\Http;
 
 class MedRecController extends Controller
 {
@@ -43,6 +44,29 @@ class MedRecController extends Controller
         //dd();
         $path = $image->storeAs('records', $fileName, 'public');
 
+        $path = url($path);
+
+        $response = Http::get('https://api.ocr.space/parse/imageurl?apikey=ca4ed5f2ec88957&url='.$path);
+
+        return $response;
+        //$result = $this->parseHealthCard($text);
+        //if(request()->has('type')) {
+        //    $result = $this->parseHealthCard($text);
+        //}
+
+        //return $result;
+    }
+
+    /**
+    public function processUpload()
+    {
+        $image = request()->file('image');
+
+        $fileName   = time() . '.' . $image->getClientOriginalExtension();
+
+        //dd();
+        $path = $image->storeAs('records', $fileName, 'public');
+
         $ocr = new TesseractOCR();
 
         $ocr->image(storage_path('app/public').'/'.$path);
@@ -59,7 +83,7 @@ class MedRecController extends Controller
         }
 
         return $result;
-    }
+    }**/
 
     public function uploadCard()
     {
