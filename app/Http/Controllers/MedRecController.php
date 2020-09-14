@@ -48,7 +48,7 @@ class MedRecController extends Controller
 
         $response = Http::get('https://api.ocr.space/parse/imageurl?apikey=ca4ed5f2ec88957&url='.$path);
 
-        return $response;
+        return 'https://api.ocr.space/parse/imageurl?apikey=ca4ed5f2ec88957&url='.$path;
         //$result = $this->parseHealthCard($text);
         //if(request()->has('type')) {
         //    $result = $this->parseHealthCard($text);
