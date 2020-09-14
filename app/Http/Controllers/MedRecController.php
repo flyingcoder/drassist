@@ -44,23 +44,9 @@ class MedRecController extends Controller
         //dd();
         $path = $image->storeAs('records', $fileName, 'public');
 
-        //$path = url('storage/'.$path);
-        $path = 'https://api.doctorassist.ca/storage/records/1600116821.png';
+        $path = url('storage/'.$path);
 
         $ocr_api = "https://api.ocr.space/parse/imageurl?apikey=ca4ed5f2ec88957";
-
-        $param = [
-            'url' => $path,
-            'filetype' => 'png',
-            'OCREngine' => 2,
-            'detectOrientation' => 'true',
-            'isTable' => 'true',
-            'isOverlayRequired' => 'true'
-        ];
-
-        foreach ($param as $key => $q) {
-            $ocr_api .= '&'.$key.'='.$q;
-        }
 
         return $ocr_api;
         //$result = $this->parseHealthCard($text);
