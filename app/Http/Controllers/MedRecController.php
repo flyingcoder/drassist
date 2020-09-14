@@ -49,12 +49,6 @@ class MedRecController extends Controller
         $ocr_api = "https://api.ocr.space/parse/imageurl?apikey=ca4ed5f2ec88957";
 
         return $ocr_api;
-        //$result = $this->parseHealthCard($text);
-        //if(request()->has('type')) {
-        //    $result = $this->parseHealthCard($text);
-        //}
-
-        //return $result;
     }
 
     /**
