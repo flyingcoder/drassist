@@ -46,7 +46,7 @@ class MedRecController extends Controller
 
         $path = url('storage/'.$path);
 
-        $ocr_api = "https://api.ocr.space/parse/imageurl?apikey=ca4ed5f2ec88957&url=".$path;
+        $ocr_api = "https://api.ocr.space/parse/imageurl?apikey=ca4ed5f2ec88957&isOverlayRequired=true&url=".$path;
 
         return $ocr_api;
     }
