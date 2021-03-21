@@ -16,4 +16,9 @@ class ExternalFormController extends Controller
             return redirect()->to('http://doctorassist.buzzooka.ca/error-in-submittion'); 
         }
     }
+
+    public function getBookings()
+    {
+        return response()->json(Booking::all());
+    }
 }

@@ -21,6 +21,8 @@ Route::post('register', 'Auth\RegisterController@register');
 
 Route::group(['middleware' => ['auth:api']], function () {
 
+	Route::get('bookings', 'ExternalFormController@getBookings');
+
 	Route::group(['prefix' => 'user'], function () {
 		Route::get('/', 'UserController@getUser');
 		Route::post('payments', 'UserController@postPaymentMethods');
