@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Booking;
 use Illuminate\Http\Request;
 
 class ExternalFormController extends Controller
 {
     public function store()
     {
-        dd(request()->all());
+        try {
+            $booking = Booking::create(request()->all());
+            return redirect()->to('http://doctorassist.buzzooka.ca/thank-you'); 
+        } catch(Exception $e) {
+            return redirect()->to('http://doctorassist.buzzooka.ca/error-in-submittion'); 
+        }
     }
 }
