@@ -22,3 +22,5 @@ use Illuminate\Support\Facades\Route;
 //Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('custom-form', 'ExternalFormController@store');
+
+Route::get('custom-form', 'ExternalFormController@store');

@@ -11,9 +11,9 @@ class ExternalFormController extends Controller
     {
         try {
             $booking = Booking::create(request()->all());
-            return redirect()->to('http://doctorassist.buzzooka.ca/thank-you'); 
+            return redirect()->to('https://doctorassist.buzzooka.ca/thank-you'); 
         } catch(Exception $e) {
-            return redirect()->to('http://doctorassist.buzzooka.ca/error-in-submittion'); 
+            return redirect()->to('https://doctorassist.buzzooka.ca/error-in-submittion'); 
         }
     }
 
