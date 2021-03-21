@@ -10,7 +10,8 @@ class ExternalFormController extends Controller
     public function store()
     {
         try {
-            $booking = Booking::create(request()->all());
+            if(!empty(request()->all()))
+                $booking = Booking::create(request()->all());
             return redirect()->to('https://doctorassist.buzzooka.ca/thank-you'); 
         } catch(Exception $e) {
             return redirect()->to('https://doctorassist.buzzooka.ca/error-in-submittion'); 
