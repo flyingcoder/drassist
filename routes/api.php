@@ -21,8 +21,11 @@ Route::post('register', 'Auth\RegisterController@register');
 
 Route::group(['middleware' => ['auth:api']], function () {
 
-	Route::get('bookings', 'ExternalFormController@getBookings');
-
+	Route::group(['prefix' => 'bookings'], function () {
+		Route::get('/', 'ExternalFormController@getBookings');
+		Route::get('/{id}', 'ExternalFormController@getBooking');
+	});
+	
 	Route::group(['prefix' => 'user'], function () {
 		Route::get('/', 'UserController@getUser');
 		Route::post('payments', 'UserController@postPaymentMethods');

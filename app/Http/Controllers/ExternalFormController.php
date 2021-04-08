@@ -22,4 +22,9 @@ class ExternalFormController extends Controller
     {
         return response()->json(Booking::all());
     }
+
+    public function getBooking($id)
+    {
+        return response()->json(Booking::findOrFail($id));
+    }
 }
