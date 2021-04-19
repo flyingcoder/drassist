@@ -41,8 +41,14 @@ class ExternalFormController extends Controller
                     'schedule_date' => request()->schedule_date,
                     'schedule_time' => request()->schedule_time,
                     'OHIP_number' => request()->OHIP_number,
-                    'patient_time' => request()->patient_time
+                    'patient_time' => request()->patient_time,
                 ]);
+
+                if (request()->hasFile('upload-image')) {
+                    $image = request()->file('upload-image');
+                    $filename = time() . '.' . $image->getClientOriginalExtension();
+                    Image::make($image)->resize(300, 300)->save(storage_path('/uploads/' . $filename));
+                }
             }
 
             return redirect()->to('https://doctorassist.buzzooka.ca/thank-you');
