@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Booking;
 use Illuminate\Http\Request;
+use Image;
 
 class ExternalFormController extends Controller
 {
@@ -51,9 +52,9 @@ class ExternalFormController extends Controller
                 }
             }
 
-            return redirect()->to('https://doctorassist.buzzooka.ca/thank-you');
-        } catch (Exception $e) {
-            return redirect()->to('https://doctorassist.buzzooka.ca/error-in-submittion');
+            return redirect()->to(config('app.form_redirect') . '/thank-you');
+        } catch (\Exception $e) {
+            return redirect()->to(config('app.form_redirect') . '/error-in-submittion');
         }
     }
 
