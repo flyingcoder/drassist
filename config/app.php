@@ -228,5 +228,5 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
     ],
-
+    'form_redirect' => env('FORM_DOMAIN_REDIRECT', 'https://doctorassist.buzzooka.ca')
 ];

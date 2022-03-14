@@ -13,7 +13,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('status');
     }
 
     /**
@@ -26,4 +26,12 @@ class HomeController extends Controller
         return view('home');
     }
 
+
+    /**
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function status()
+    {
+        return view('status');
+    }
 }

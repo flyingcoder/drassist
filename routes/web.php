@@ -13,9 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
 
 //Auth::routes();
 
@@ -24,3 +21,5 @@ use Illuminate\Support\Facades\Route;
 Route::post('custom-form', 'ExternalFormController@store');
 
 Route::get('custom-form', 'ExternalFormController@store');
+
+Route::get('/', 'HomeController@status');
